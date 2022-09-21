@@ -20,6 +20,9 @@ w.show()
 note that the windows bar is white.
 since QT can't change bar color unreal_qt has some options to wrap your widget with a custom bar.
 - default window bar & frame (see above image)
+
+![image](https://user-images.githubusercontent.com/3758308/191580757-f3993797-da80-449e-b9d4-ad311b2f37c5.png)
+
 - custom bar, no frame (note you can't resize this one yet!)
 
 ![image](https://user-images.githubusercontent.com/3758308/191583138-20abd8f9-386e-4631-bb49-fcc9bb0b1497.png)
