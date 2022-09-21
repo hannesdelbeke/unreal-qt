@@ -24,18 +24,20 @@ w.show()
 
 ![image](https://user-images.githubusercontent.com/3758308/191580757-f3993797-da80-449e-b9d4-ad311b2f37c5.png)
 
-## Title bar
-note that the windows bar is white.
-since QT can't change bar color unreal_qt has some options to wrap your widget with a custom bar.
-- default window bar & frame (see above image)
+## Dark title bar
+The windows bar is by default white on Windows, and QT can't change the bar color.
 
-![image](https://user-images.githubusercontent.com/3758308/191580757-f3993797-da80-449e-b9d4-ad311b2f37c5.png)
+With unreal_qt you can add a custom bar.
 
-- custom bar, no frame (note you can't resize this one yet!)
+- default window bar & frame
+
+![image](https://user-images.githubusercontent.com/3758308/191618705-45914a58-893b-4680-995e-976571b7c7eb.png)
+
+- custom bar, no frame (no resize support!)
 
 ![image](https://user-images.githubusercontent.com/3758308/191618309-13e7329f-4310-407a-9eef-383a113e1ac1.png)
 
-- custom bar, frame, no title bar (supports resize but has a white bar at top)
+- custom bar, frame, no title bar (supports resize)
 
 ![image](https://user-images.githubusercontent.com/3758308/191618151-319b8530-addb-4b9a-a51f-5da0a90a4fd3.png)
 
