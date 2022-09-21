@@ -33,11 +33,11 @@ since QT can't change bar color unreal_qt has some options to wrap your widget w
 
 - custom bar, no frame (note you can't resize this one yet!)
 
-![image](https://user-images.githubusercontent.com/3758308/191583138-20abd8f9-386e-4631-bb49-fcc9bb0b1497.png)
+![image](https://user-images.githubusercontent.com/3758308/191618309-13e7329f-4310-407a-9eef-383a113e1ac1.png)
 
-- custom bar, frame, no title bar
+- custom bar, frame, no title bar (supports resize but has a white bar at top)
 
-![image](https://user-images.githubusercontent.com/3758308/191582742-a1c021b0-2aa9-4318-8474-231683d280de.png)
+![image](https://user-images.githubusercontent.com/3758308/191618151-319b8530-addb-4b9a-a51f-5da0a90a4fd3.png)
 
 
 ## Engine resource browser
