@@ -1,4 +1,4 @@
-# based on https://www.pythonfixing.com/2022/01/fixed-custom-titlebar-with-frame-in.html
+# custom qt window based on https://www.pythonfixing.com/2022/01/fixed-custom-titlebar-with-frame-in.html
 
 import sys
 
@@ -53,20 +53,21 @@ class MainWindow(QWidget):
     def __init__(self):
         super(MainWindow, self).__init__()
         self.layout = QVBoxLayout()
-        self.layout.addWidget(DarkBar(self))
+        self.layout.addWidget(DarkBar(self, title="test"))
         self.setLayout(self.layout)
         self.layout.setContentsMargins(0, 0, 0, 0)
-        # self.setMinimumSize(800,400)
+        self.setMinimumSize(100,50)
         # self.pressing = False
 
         # use CustomizeWindowHint when you want to support resizing
         self.setWindowFlags(Qt.Tool | Qt.CustomizeWindowHint)
         # otherwise use MSWindowsFixedSizeDialogHint
         # self.setWindowFlags(Qt.Tool | Qt.MSWindowsFixedSizeDialogHint)
+        # self.setWindowFlags(Qt.Tool | Qt.FramelessWindowHint)
 
         create_test_content(self)
 
-        # self.layout.addStretch(-1)
+        self.layout.addStretch(-1)  # this helps the bar staying at top when scaling the window
 
 
 class DarkBar(QWidget):
@@ -83,19 +84,25 @@ class DarkBar(QWidget):
         self.parent = parent
 
         self.layout = QHBoxLayout()
-        self.title = QLabel(title)
+        self.title = QLabel()
+        self.icon_layout = QHBoxLayout()
+        self.title_text = QLabel(title)
 
-        self.btn_close = QPushButton("x")
-        self.btn_minimize = QPushButton("-")
-        self.btn_maximize = QPushButton("▢")
+        self.btn_close = QPushButton("☓")
+        self.btn_minimize = QPushButton("⎯")
+        self.btn_maximize = QPushButton("⃞")
 
         self._connect_buttons()
         self._styling(height)
 
         self.layout.addWidget(self.title)
-        self.layout.addWidget(self.btn_minimize)
-        self.layout.addWidget(self.btn_maximize)
-        self.layout.addWidget(self.btn_close)
+        self.icon_layout.addStretch(-1)
+        self.icon_layout.addWidget(self.title_text)
+        self.icon_layout.addStretch(-1)
+        self.icon_layout.addWidget(self.btn_minimize)
+        self.icon_layout.addWidget(self.btn_maximize)
+        self.icon_layout.addWidget(self.btn_close)
+        self.title.setLayout(self.icon_layout)
 
         self.setLayout(self.layout)
 
@@ -111,17 +118,29 @@ class DarkBar(QWidget):
     def _styling(self, height):
         """prettify the qt elements, run after creating all elements in init"""
 
+        # unreal dark grey
+        ue_grey = "#151515"
+        ue_grey_white = "#c0c0c0"
+
+        # remove padding layout
+        self.layout.setSpacing(0)
         self.layout.setContentsMargins(0, 0, 0, 0)
+
+        self.icon_layout.setSpacing(0)
+        self.icon_layout.setContentsMargins(0, 0, 0, 0)
 
         # style buttons
         for btn in [self.btn_close, self.btn_minimize, self.btn_maximize]:
             btn.setFixedSize(height, height)
-            btn.setStyleSheet("background-color: transparent;")
+            btn.setStyleSheet(f"background-color: transparent; font-size: 14px; color: {ue_grey_white};")
+            btn.setFlat(True)  # remove frame from buttons
 
         # style title
         self.title.setFixedHeight(height)
         self.title.setAlignment(Qt.AlignCenter)
-        self.title.setStyleSheet("""background-color: #151515;color: white;""")
+        self.title.setStyleSheet(f"""background-color: {ue_grey};""")
+        self.title_text.setStyleSheet(f"""color: {ue_grey_white};""")
+
 
     # resizing is not implemented
     # def resizeEvent(self, QResizeEvent):
@@ -166,3 +185,5 @@ mw.show()
 
 import unreal
 unreal.parent_external_window_to_slate(mw.winId())
+
+raise Exception("test")
