@@ -1,6 +1,9 @@
 # unreal_qt
-QT PySide2 support for unreal engine 5 (likely works in 4 too)
+QT PySide2 support for unreal engine 5 (likely works in unreal 4)
 
+automated styling using [unreal_stylesheet](https://github.com/leixingyu/UnrealStylesheet)
+
+## Quickstart
 ```python
 import unreal_qt
 unreal_qt.setup()  # put this in an init_unreal.py file to auto setup on unreal start
