@@ -21,7 +21,7 @@ from PySide2.QtWidgets import QPushButton
 from PySide2.QtWidgets import QVBoxLayout
 from PySide2.QtWidgets import QWidget
 from PySide2.QtWidgets import QFrame, QDialog, QTabWidget
-
+from pathlib import Path
 
 # # https://stackoverflow.com/questions/7351493/how-to-add-border-around-qwidget
 # class CentralWidget(QtGui.QFrame):
@@ -70,6 +70,14 @@ class MainWindow(QWidget):
         self.layout.addStretch(-1)  # this helps the bar staying at top when scaling the window
 
 
+# self._minimizeBtn.setText('🗕')
+# self._maximizeBtn.setText('🗖')
+# self._closeBtn.setText('🗙')
+#         self._maximizeBtn.setText('🗗')
+#     else:
+#         self._maximizeBtn.setText('🗖')
+#
+#
 class DarkBar(QWidget):
     """A custom dark title bar for a window, meant to replace the default windows titlebar"""
     # note QWidget functions don't use camelCase, don't change this
@@ -83,14 +91,18 @@ class DarkBar(QWidget):
         super(DarkBar, self).__init__(*args, **kwargs)
         self.parent = parent
 
+        self._height = height
+
         self.layout = QHBoxLayout()
         self.title = QLabel()
         self.icon_layout = QHBoxLayout()
         self.title_text = QLabel(title)
 
-        self.btn_close = QPushButton("☓")
-        self.btn_minimize = QPushButton("⎯")
-        self.btn_maximize = QPushButton("⃞")
+        self.btn_close = QPushButton("🗙")
+        self.btn_minimize = QPushButton("🗕")
+        self.btn_maximize = QPushButton("🗖")
+
+        self._style_buttons_svg()
 
         self._connect_buttons()
         self._styling(height)
@@ -109,6 +121,26 @@ class DarkBar(QWidget):
         # init mouse tracking
         self.start = QPoint(0, 0)
         self.pressing = False
+
+    def _style_buttons_svg(self):
+        data = {
+            self.btn_close: r"C:\Program Files\Epic Games\UE_5.0\Engine\Content\Slate\Starship\CoreWidgets\Window\close.svg",
+            self.btn_minimize: r"C:\Program Files\Epic Games\UE_5.0\Engine\Content\Slate\Starship\CoreWidgets\Window\minimize.svg",
+            self.btn_maximize: r"C:\Program Files\Epic Games\UE_5.0\Engine\Content\Slate\Starship\CoreWidgets\Window\maximize.svg",
+            #TODO restore
+        }
+        for btn, icon_path in data.items():
+
+            if not Path(icon_path).exists():
+                # use text as backup
+                continue
+
+            # p = r"C:\Program Files\Epic Games\UE_5.0\Engine\Content\Slate\Starship\CoreWidgets\Window\close.svg"
+            icon = QtGui.QIcon(icon_path)
+            btn.setIcon(icon)
+            btn.setIconSize(PySide2.QtCore.QSize(self._height, self._height))
+            btn.setText("")  # clear text if we set icon
+
 
     def _connect_buttons(self):
         self.btn_close.clicked.connect(self.close_parent)
