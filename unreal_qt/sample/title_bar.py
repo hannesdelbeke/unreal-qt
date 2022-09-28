@@ -70,14 +70,6 @@ class MainWindow(QWidget):
         self.layout.addStretch(-1)  # this helps the bar staying at top when scaling the window
 
 
-# self._minimizeBtn.setText('🗕')
-# self._maximizeBtn.setText('🗖')
-# self._closeBtn.setText('🗙')
-#         self._maximizeBtn.setText('🗗')
-#     else:
-#         self._maximizeBtn.setText('🗖')
-#
-#
 class DarkBar(QWidget):
     """A custom dark title bar for a window, meant to replace the default windows titlebar"""
     # note QWidget functions don't use camelCase, don't change this
@@ -101,6 +93,8 @@ class DarkBar(QWidget):
         self.btn_close = QPushButton("🗙")
         self.btn_minimize = QPushButton("🗕")
         self.btn_maximize = QPushButton("🗖")
+        self.btn_restore = QPushButton("🗗", )
+        self.btn_restore.setVisible(False)
 
         self._style_buttons_svg()
 
@@ -113,6 +107,7 @@ class DarkBar(QWidget):
         self.icon_layout.addStretch(-1)
         self.icon_layout.addWidget(self.btn_minimize)
         self.icon_layout.addWidget(self.btn_maximize)
+        self.icon_layout.addWidget(self.btn_restore)
         self.icon_layout.addWidget(self.btn_close)
         self.title.setLayout(self.icon_layout)
 
@@ -127,6 +122,7 @@ class DarkBar(QWidget):
             self.btn_close: r"C:\Program Files\Epic Games\UE_5.0\Engine\Content\Slate\Starship\CoreWidgets\Window\close.svg",
             self.btn_minimize: r"C:\Program Files\Epic Games\UE_5.0\Engine\Content\Slate\Starship\CoreWidgets\Window\minimize.svg",
             self.btn_maximize: r"C:\Program Files\Epic Games\UE_5.0\Engine\Content\Slate\Starship\CoreWidgets\Window\maximize.svg",
+            self.btn_restore: r"C:\Program Files\Epic Games\UE_5.0\Engine\Content\Slate\Starship\CoreWidgets\Window\restore.svg",
             #TODO restore
         }
         for btn, icon_path in data.items():
@@ -146,6 +142,7 @@ class DarkBar(QWidget):
         self.btn_close.clicked.connect(self.close_parent)
         self.btn_minimize.clicked.connect(self.minimize_parent)
         self.btn_maximize.clicked.connect(self.maximize_parent)
+        self.btn_restore.clicked.connect(self.maximize_parent)
 
     def _styling(self, height):
         """prettify the qt elements, run after creating all elements in init"""
@@ -162,7 +159,7 @@ class DarkBar(QWidget):
         self.icon_layout.setContentsMargins(0, 0, 0, 0)
 
         # style buttons
-        for btn in [self.btn_close, self.btn_minimize, self.btn_maximize]:
+        for btn in [self.btn_close, self.btn_minimize, self.btn_maximize, self.btn_restore]:
             btn.setFixedSize(height, height)
             btn.setStyleSheet(f"background-color: transparent; font-size: 14px; color: {ue_grey_white};")
             btn.setFlat(True)  # remove frame from buttons
@@ -193,8 +190,12 @@ class DarkBar(QWidget):
         # modified this func to support going back to normal
         if self.parent.windowState() & PySide2.QtCore.Qt.WindowMaximized:
             self.parent.showNormal()
+            self.btn_maximize.setVisible(True)
+            self.btn_restore.setVisible(False)
         else:
             self.parent.showMaximized()
+            self.btn_maximize.setVisible(False)
+            self.btn_restore.setVisible(True)
 
     def minimize_parent(self):
         self.parent.showMinimized()
