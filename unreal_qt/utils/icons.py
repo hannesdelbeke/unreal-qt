@@ -34,7 +34,7 @@ class IconWidget(QWidget):
                 thumbnail_list.setViewMode(QtWidgets.QListView.IconMode)
                 thumbnail_list.setIconSize(QtCore.QSize(64, 64))
             # set background to dark grey, text to white
-            thumbnail_list.setStyleSheet("background-color: rgb(50, 50, 50); color: rgb(255, 255, 255);")
+            # thumbnail_list.setStyleSheet("background-color: rgb(50, 50, 50); color: rgb(255, 255, 255);")
             thumbnail_list.setDragEnabled(False)
 
             self.lists.append(thumbnail_list)
@@ -112,8 +112,16 @@ class IconWidget(QWidget):
     def click_icon(self, item):
         self.selected_field.setText(item.toolTip())
 
-app = QApplication([])
-i = IconWidget()
-i.resize(1000, 800)
-i.show()
-app.exec_()
+
+window = None
+
+def show():
+    # app = QApplication([])
+    global window
+    window = IconWidget()
+    window.resize(1000, 800)
+    window.show()
+
+    import unreal
+    unreal.parent_external_window_to_slate(window.winId())
+    # app.exec_()
