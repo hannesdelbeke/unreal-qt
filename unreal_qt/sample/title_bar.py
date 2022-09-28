@@ -151,18 +151,8 @@ class DarkBar(QWidget):
         self.start = self.mapToGlobal(event.pos())
         self.pressing = True
 
-    def mouseMoveEvent(self, event):
-        if self.pressing:
-            self.end = self.mapToGlobal(event.pos())
-            self.movement = self.end - self.start
-            self.parent.setGeometry(self.mapToGlobal(self.movement).x(),
-                                    self.mapToGlobal(self.movement).y(),
-                                    self.parent.width(),
-                                    self.parent.height())
-            self.start = self.end
-
-    def mouseReleaseEvent(self, QMouseEvent):
-        self.pressing = False
+        window = self.parent.windowHandle()
+        window.startSystemMove()
 
     def close_parent(self):
         self.parent.close()
