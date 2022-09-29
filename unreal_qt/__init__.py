@@ -34,7 +34,11 @@ def setup():
     global tick_handle
     print("Start setup unreal_qt")
 
-    QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling)  # run before creating QApplication
+    # enable dpi scale, run before creating QApplication
+    QtWidgets.QApplication.setHighDpiScaleFactorRoundingPolicy(QtCore.Qt.HighDpiScaleFactorRoundingPolicy.PassThrough)
+    QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling)
+    QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_UseHighDpiPixmaps)
+
     unreal_app = QtWidgets.QApplication.instance() or QtWidgets.QApplication(sys.argv)
         # tick_handle = unreal.register_slate_post_tick_callback(__qt_app_tick)
         # unreal_app.aboutToQuit.connect(__qt_app_quit)
