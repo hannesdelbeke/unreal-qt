@@ -32,7 +32,7 @@ from PySide2 import QtWidgets, QtCore
 def setup():
     """This part is for the initial setup. Need to run once to spawn the application."""
     global tick_handle
-    print("Start setup uqt")
+    print("Start setup unreal_qt")
 
     QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling)  # run before creating QApplication
     unreal_app = QtWidgets.QApplication.instance() or QtWidgets.QApplication(sys.argv)
@@ -44,10 +44,7 @@ def setup():
     import unreal_qt.unrealStylesheet.main
     unreal_qt.unrealStylesheet.main.setup()
 
-    print("Finished setup uqt")
-    # print("please leave a comment or review on the marketplace if you like this plugin")
-    # TODO marketplace link
-    print("You can find 'unreal_qt' in github")
+    print("Finished setup unreal_qt")
 
 
 # based on https://github.com/AlexQuevillon/UnrealPythonLibrary
