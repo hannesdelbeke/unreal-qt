@@ -42,7 +42,7 @@ class DarkBar(QWidget):
         self.title = QLabel()
         self.icon_layout = QHBoxLayout()
 
-        self.btn_icon = QPushButton()
+        self.btn_icon = QPushButton("♥")
         self.title_text = QLabel("   " + title)  # hack, add space instead of margin
         self.btn_close = QPushButton("🗙")
         self.btn_minimize = QPushButton("🗕")
@@ -211,6 +211,8 @@ class FramelessWindow(QWidget):
     def setWindowTitle(self, title):
         self.title_bar.title_text.setText(title)
 
+    def windowTitle(self) -> str:
+        return self.title_bar.title_text.text()
 
     def setWindowIcon(self, icon: QtGui.QIcon, size=1) -> None:
         self.title_bar.btn_icon.setIcon(icon)
