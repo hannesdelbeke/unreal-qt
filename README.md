@@ -43,8 +43,8 @@ With unreal_qt you can add a custom bar.
 
 
 ## Engine resource browser
-Included is a bare bones resource browser, letting you browse default unreal icons & shapes that can be used in your qt-tools
-- filter by file type
-- search bar to search resources
+Browse the unreal instal folder for default unreal icons & shapes that can be used in your qt-tools
+- filter icons by file type
+- search icons by name
 
 ![image](https://user-images.githubusercontent.com/3758308/191581830-d0a527ec-cd5a-4724-9454-60f418bd93f0.png)
