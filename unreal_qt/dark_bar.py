@@ -124,6 +124,28 @@ class DarkBar(QWidget):
     def minimize_parent(self):
         self.parent.showMinimized()
 
+    def setWindowFlags(self, type):
+        super().setWindowFlags(type)
+
+        print("setWindowFlags", type)
+        # see https://doc.qt.io/qt-6/qt.html#WindowType-enum
+        # hide buttons if tool window
+        self.btn_minimize.setVisible(not type & QtCore.Qt.Tool)
+        self.btn_maximize.setVisible(not type & QtCore.Qt.Tool)
+
+        print("flags:", type)
+        print(self.windowFlags())
+
+        # TODO add support for
+        # Qt.WindowMinimizeButtonHint
+        # Qt.WindowMaximizeButtonHint
+        # Qt.WindowCloseButtonHint
+        # Qt.WindowContextHelpButtonHint
+        # Qt.WindowTitleHint
+        # Qt.WindowSystemMenuHint
+
+
+
 
 class DarkBarUnreal(DarkBar):
     def __init__(self, parent, title="", height=35, *args, **kwargs):
@@ -212,6 +234,14 @@ class FramelessWindow(QWidget):
     def windowIcon(self) -> QtGui.QIcon:
         return self.title_bar.btn_icon.icon()
 
+    def setWindowFlag(self, arg__1:QtCore.Qt.WindowType, on=True) -> None:
+        super().setWindowFlag(arg__1, on)
+        self._process_flags()
+
+    def setWindowFlags(self, type:QtCore.Qt.WindowFlags) -> None:
+        super().setWindowFlags(Qt.Window | Qt.CustomizeWindowHint)
+        self.title_bar.setWindowFlags(type)
+
 
 class FramelessWindowUnreal(FramelessWindow):
     default_title_bar = DarkBarUnreal
@@ -227,5 +257,6 @@ def wrap_widget_unreal(widget: QWidget) -> FramelessWindowUnreal:
     window.setWindowTitle(widget.windowTitle())
     window.resize(widget.size())
     window.move(widget.pos())
+    window.setWindowFlags(widget.windowFlags())
 
     return window
