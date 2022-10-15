@@ -6,6 +6,7 @@ import sys
 from PySide2 import QtWidgets, QtCore
 import functools
 import unreal_qt.dark_bar
+import unreal
 
 
 def setup():
@@ -41,21 +42,29 @@ class widget_manager():
         return closeEvent
 
     @classmethod
+    def _wrap_show(cls, widget):
+        original_show = widget.show
+        def show(self):
+            original_show()
+            unreal.parent_external_window_to_slate(widget.winId())  # this only works after showing the widget
+        functools.partial(show, widget)
+
+    @classmethod
     def add_widget(cls, widget: QtWidgets.QWidget):
         """
         Add a widget to the widget manager.
         - prevent widget from being garbage collected
         - hookup closeEvent to remove widget from manager
         - add dark window bar to mimic Unreal's visual style
+        - parent widget to Unreal's main window to stay on top
         """
         if widget in cls.widgets:
             return widget
-
         widget = unreal_qt.dark_bar.wrap_widget_unreal(widget)
         cls.widgets.append(widget)
         cls._wrap_closeEvent(widget, widget.closeEvent)
+        cls._wrap_show(widget)
         return widget
-
 
     @classmethod
     def remove_widget(cls, widget):
