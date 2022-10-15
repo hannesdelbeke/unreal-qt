@@ -141,20 +141,21 @@ class DarkBarUnreal(DarkBar):
         self._style_buttons_svg()
 
     def _style_buttons_svg(self):
+        import unreal  # import unreal here to avoid import error in other dccs
+        engine_content = Path(unreal.Paths.engine_content_dir())
         data = {
-            self.btn_close: r"C:\Program Files\Epic Games\UE_5.0\Engine\Content\Slate\Starship\CoreWidgets\Window\close.svg",
-            self.btn_minimize: r"C:\Program Files\Epic Games\UE_5.0\Engine\Content\Slate\Starship\CoreWidgets\Window\minimize.svg",
-            self.btn_maximize: r"C:\Program Files\Epic Games\UE_5.0\Engine\Content\Slate\Starship\CoreWidgets\Window\maximize.svg",
-            self.btn_restore: r"C:\Program Files\Epic Games\UE_5.0\Engine\Content\Slate\Starship\CoreWidgets\Window\restore.svg",
-            #TODO restore
+            self.btn_close: engine_content / r"Slate\Starship\CoreWidgets\Window\close.svg",
+            self.btn_minimize: engine_content / r"Slate\Starship\CoreWidgets\Window\minimize.svg",
+            self.btn_maximize: engine_content / r"Slate\Starship\CoreWidgets\Window\maximize.svg",
+            self.btn_restore: engine_content / r"Slate\Starship\CoreWidgets\Window\restore.svg",
         }
         for btn, icon_path in data.items():
 
-            if not Path(icon_path).exists():
+            if not icon_path.exists():
                 # use text as backup
                 continue
 
-            icon = QtGui.QIcon(icon_path)
+            icon = QtGui.QIcon(str(icon_path))
             btn.setIcon(icon)
             btn.setIconSize(PySide2.QtCore.QSize(self._height, self._height))
             btn.setText("")  # clear text if we set icon
