@@ -226,10 +226,10 @@ class FramelessWindow(QWidget):
     def windowTitle(self) -> str:
         return self.title_bar.title_text.text()
 
-    def setWindowIcon(self, icon: QtGui.QIcon, size=1) -> None:
+    def setWindowIcon(self, icon: QtGui.QIcon) -> None:
         self.title_bar.btn_icon.setIcon(icon)
-        self.title_bar.btn_icon.setIconSize(QtCore.QSize(self.title_bar._height * size,
-                                                                 self.title_bar._height * size))
+        self.title_bar.btn_icon.setIconSize(QtCore.QSize(self.title_bar._height * .5,
+                                                                 self.title_bar._height * .5))
 
     def windowIcon(self) -> QtGui.QIcon:
         return self.title_bar.btn_icon.icon()
@@ -255,6 +255,7 @@ def wrap_widget_unreal(widget: QWidget) -> FramelessWindowUnreal:
 
     # copy over settings from widget
     window.setWindowTitle(widget.windowTitle())
+    window.setWindowIcon(widget.windowIcon())
     window.resize(widget.size())
     window.move(widget.pos())
     window.setWindowFlags(widget.windowFlags())
