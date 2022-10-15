@@ -203,6 +203,9 @@ class FramelessWindow(QWidget):
         self.content_layout.addWidget(widget)
         return widget
 
+    def setWindowTitle(self, title):
+        self.title_bar.title_text.setText(title)
+
 
 class FramelessWindowUnreal(FramelessWindow):
     default_title_bar = DarkBarUnreal
@@ -210,6 +213,13 @@ class FramelessWindowUnreal(FramelessWindow):
 
 def wrap_widget_unreal(widget):
     """wrap a widget in a frameless window with a custom title bar"""
+    # wrap widget in a frameless window
     window = FramelessWindowUnreal()
     window.setCentralWidget(widget)
+
+    # copy over settings from widget
+    window.setWindowTitle(widget.windowTitle())
+    window.resize(widget.size())
+    window.move(widget.pos())
+
     return window
