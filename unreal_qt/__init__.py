@@ -5,6 +5,7 @@ import unreal_qt.unrealStylesheet.main
 import sys
 from PySide2 import QtWidgets, QtCore
 import functools
+import unreal_qt.dark_bar
 
 
 def setup():
@@ -48,16 +49,18 @@ class widget_manager():
         - add dark window bar to mimic Unreal's visual style
         """
         if widget in cls.widgets:
-            return
+            return widget
 
+        widget = unreal_qt.dark_bar.wrap_widget_unreal(widget)
         cls.widgets.append(widget)
         cls._wrap_closeEvent(widget, widget.closeEvent)
+        return widget
 
 
     @classmethod
     def remove_widget(cls, widget):
         cls.widgets.remove(widget)
 
+
 def wrap(widget):
-    widget_manager.add_widget(widget)
-    return widget
+    return widget_manager.add_widget(widget)

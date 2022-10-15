@@ -134,6 +134,7 @@ class DarkBar(QWidget):
     def minimize_parent(self):
         self.parent.showMinimized()
 
+
 class DarkBarUnreal(DarkBar):
     def __init__(self, parent, title="", height=35, *args, **kwargs):
         super(DarkBarUnreal, self).__init__(parent, title, height, *args, **kwargs)
@@ -196,5 +197,18 @@ class FramelessWindow(QWidget):
             title_bar = self.default_title_bar(self, title=title)
         return title_bar
 
+    def setCentralWidget(self, widget):  # noqa: use same name convention as qmainwindow
+        """add a widget to the content layout"""
+        self.content_layout.addWidget(widget)
+        return widget
+
+
 class FramelessWindowUnreal(FramelessWindow):
     default_title_bar = DarkBarUnreal
+
+
+def wrap_widget_unreal(widget):
+    """wrap a widget in a frameless window with a custom title bar"""
+    window = FramelessWindowUnreal()
+    window.setCentralWidget(widget)
+    return window
