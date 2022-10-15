@@ -11,16 +11,22 @@ QT PySide2 support for unreal engine 5 (likely works in unreal 4)
 1. Add the unreal_qt folder in your python path. See [unreal docs](https://docs.unrealengine.com/4.27/en-US/ProductionPipelines/ScriptingAndAutomation/Python/#pythonpathsintheunrealeditor)
 2. create following sample script and add to unreal python path.
 ```python
+# 1. SETUP unreal_qt: it's suggested to run this setup in a init_unreal.py file, so setup auto runs on editor startup
 import unreal_qt
-unreal_qt.setup()  # if you put the setup in an init_unreal.py file, unreal will run setup on startup
+unreal_qt.setup()  
 
+# 2. CREATE WIDGET
 # every widget you make after setup won't block the editor & have unreal styling
 from PySide2.QtWidgets import QLabel, QWidget, QVBoxLayout
-
 w = QWidget()
 layout = QVBoxLayout()
 w.setLayout(layout)
 layout.addWidget(QLabel("Hello World!"))
+
+# 3. WRAP WIDGET
+unreal_qt.wrap(w)
+
+# 4. SHOW WIDGET
 w.show()
 ```
 3. import script in unreal with the Python terminal to run it.
