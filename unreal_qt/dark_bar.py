@@ -204,9 +204,11 @@ class FramelessWindow(QWidget):
         return title_bar
 
     def setCentralWidget(self, widget):  # noqa: use same name convention as qmainwindow
-        """add a widget to the content layout"""
         self.content_layout.addWidget(widget)
         return widget
+
+    def centralWidget(self):
+        return self.content_layout.itemAt(0).widget()
 
     def setWindowTitle(self, title):
         self.title_bar.title_text.setText(title)
