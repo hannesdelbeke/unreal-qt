@@ -1,15 +1,4 @@
-
-import sys
-
-# from PyQt5.QtCore import QPoint
-# from PyQt5.QtCore import Qt
-# from PyQt5.QtWidgets import QApplication
-# from PyQt5.QtWidgets import QHBoxLayout
-# from PyQt5.QtWidgets import QLabel
-# from PyQt5.QtWidgets import QPushButton
-# from PyQt5.QtWidgets import QVBoxLayout
-# from PyQt5.QtWidgets import QWidget
-import PySide2.QtCore
+from PySide2 import QtCore
 import PySide2.QtGui as QtGui
 from PySide2.QtCore import QPoint
 from PySide2.QtCore import Qt
@@ -19,7 +8,6 @@ from PySide2.QtWidgets import QLabel
 from PySide2.QtWidgets import QPushButton
 from PySide2.QtWidgets import QVBoxLayout
 from PySide2.QtWidgets import QWidget
-from PySide2.QtWidgets import QFrame, QDialog, QTabWidget
 from pathlib import Path
 
 
@@ -124,7 +112,7 @@ class DarkBar(QWidget):
 
     def maximize_parent(self):
         # modified this func to support going back to normal
-        if self.parent.windowState() & PySide2.QtCore.Qt.WindowMaximized:
+        if self.parent.windowState() & QtCore.Qt.WindowMaximized:
             self.parent.showNormal()
             self.btn_maximize.setVisible(True)
             self.btn_restore.setVisible(False)
@@ -160,10 +148,10 @@ class DarkBarUnreal(DarkBar):
 
             icon = QtGui.QIcon(str(icon_path))
             btn.setIcon(icon)
-            btn.setIconSize(PySide2.QtCore.QSize(self._height, self._height))
+            btn.setIconSize(QtCore.QSize(self._height, self._height))
             btn.setText("")  # clear text if we set icon
 
-        self.btn_icon.setIconSize(PySide2.QtCore.QSize(self._height / 2, self._height / 2))
+        self.btn_icon.setIconSize(QtCore.QSize(self._height / 2, self._height / 2))
 
 
 class FramelessWindow(QWidget):
@@ -218,10 +206,10 @@ class FramelessWindow(QWidget):
 
     def setWindowIcon(self, icon: QtGui.QIcon, size=1) -> None:
         self.title_bar.btn_icon.setIcon(icon)
-        self.title_bar.btn_icon.setIconSize(PySide2.QtCore.QSize(self.title_bar._height * size,
+        self.title_bar.btn_icon.setIconSize(QtCore.QSize(self.title_bar._height * size,
                                                                  self.title_bar._height * size))
 
-    def windowIcon(self) -> PySide2.QtGui.QIcon:
+    def windowIcon(self) -> QtGui.QIcon:
         return self.title_bar.btn_icon.icon()
 
 
@@ -229,7 +217,7 @@ class FramelessWindowUnreal(FramelessWindow):
     default_title_bar = DarkBarUnreal
 
 
-def wrap_widget_unreal(widget):
+def wrap_widget_unreal(widget: QWidget) -> FramelessWindowUnreal:
     """wrap a widget in a frameless window with a custom title bar"""
     # wrap widget in a frameless window
     window = FramelessWindowUnreal()
