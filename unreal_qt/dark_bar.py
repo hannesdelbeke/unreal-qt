@@ -41,8 +41,9 @@ class DarkBar(QWidget):
         self.layout = QHBoxLayout()
         self.title = QLabel()
         self.icon_layout = QHBoxLayout()
-        self.title_text = QLabel("   " + title)  # hack, add space instead of margin
 
+        self.btn_icon = QPushButton()
+        self.title_text = QLabel("   " + title)  # hack, add space instead of margin
         self.btn_close = QPushButton("🗙")
         self.btn_minimize = QPushButton("🗕")
         self.btn_maximize = QPushButton("🗖")
@@ -56,6 +57,7 @@ class DarkBar(QWidget):
 
         self.layout.addWidget(self.title)
         # self.icon_layout.addStretch(-1)
+        self.icon_layout.addWidget(self.btn_icon)
         self.icon_layout.addWidget(self.title_text)
         self.icon_layout.addStretch(-1)
         self.icon_layout.addWidget(self.btn_minimize)
@@ -91,7 +93,7 @@ class DarkBar(QWidget):
         self.icon_layout.setContentsMargins(0, 0, 0, 0)
 
         # style buttons
-        for btn in [self.btn_close, self.btn_minimize, self.btn_maximize, self.btn_restore]:
+        for btn in [self.btn_icon, self.btn_close, self.btn_minimize, self.btn_maximize, self.btn_restore]:
             btn.setFixedSize(height, height)
             btn.setStyleSheet(f"background-color: transparent; font-size: 14px; color: {ue_grey_white};")
             btn.setFlat(True)  # remove frame from buttons
@@ -137,13 +139,14 @@ class DarkBar(QWidget):
 
 class DarkBarUnreal(DarkBar):
     def __init__(self, parent, title="", height=35, *args, **kwargs):
-        super(DarkBarUnreal, self).__init__(parent, title, height, *args, **kwargs)
+        super().__init__(parent, title, height, *args, **kwargs)
         self._style_buttons_svg()
 
     def _style_buttons_svg(self):
         import unreal  # import unreal here to avoid import error in other dccs
         engine_content = Path(unreal.Paths.engine_content_dir())
         data = {
+            self.btn_icon: engine_content / r"Slate\Starship\Common\unreal-small.svg",
             self.btn_close: engine_content / r"Slate\Starship\CoreWidgets\Window\close.svg",
             self.btn_minimize: engine_content / r"Slate\Starship\CoreWidgets\Window\minimize.svg",
             self.btn_maximize: engine_content / r"Slate\Starship\CoreWidgets\Window\maximize.svg",
@@ -159,6 +162,8 @@ class DarkBarUnreal(DarkBar):
             btn.setIcon(icon)
             btn.setIconSize(PySide2.QtCore.QSize(self._height, self._height))
             btn.setText("")  # clear text if we set icon
+
+        self.btn_icon.setIconSize(PySide2.QtCore.QSize(self._height / 2, self._height / 2))
 
 
 class FramelessWindow(QWidget):
