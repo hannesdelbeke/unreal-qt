@@ -212,6 +212,15 @@ class FramelessWindow(QWidget):
         self.title_bar.title_text.setText(title)
 
 
+    def setWindowIcon(self, icon: QtGui.QIcon, size=1) -> None:
+        self.title_bar.btn_icon.setIcon(icon)
+        self.title_bar.btn_icon.setIconSize(PySide2.QtCore.QSize(self.title_bar._height * size,
+                                                                 self.title_bar._height * size))
+
+    def windowIcon(self) -> PySide2.QtGui.QIcon:
+        return self.title_bar.btn_icon.icon()
+
+
 class FramelessWindowUnreal(FramelessWindow):
     default_title_bar = DarkBarUnreal
 
