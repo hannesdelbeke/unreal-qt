@@ -11,7 +11,8 @@ def install_to_menu():
                         "items": [
                             {
                                 "name": "Open Icon Browser",
-                                "command": "import unreal_qt.utils.icons"
+                                "command": "import unreal_qt.utils.icons;"
+                                           "unreal_qt.utils.icons.show()"
                             }
                         ]
                     }
