@@ -4,6 +4,7 @@ Add support for qt in unreal without blocking the editor/tick
 import unreal_qt.unrealStylesheet.main
 import sys
 from PySide2 import QtWidgets, QtCore
+import functools
 
 
 def setup():
@@ -20,27 +21,22 @@ def setup():
 
     print("Completed unreal_qt setup")
 
+
 class widget_manager():
     widgets = []
 
     @classmethod
     def _wrap_closeEvent(cls, widget, original_closeEvent):  # noqa
-        # due to the overriding method on an instance, self is not passed anymore in closeEvent!
-
-        def closeEvent(event=None):  # noqa
+        def closeEvent(self, event):  # noqa
             # run original closeEvent
             result = original_closeEvent(event)
-
             # remove widget from list
             close_widget = event.isAccepted()
             if close_widget:
-                cls.remove_widget(widget)
-
+                cls.remove_widget(self)
             # return original result
             return result
-
-        setattr(widget, "closeEvent", closeEvent)
-
+        functools.partial(closeEvent, widget)
         return closeEvent
 
     @classmethod
