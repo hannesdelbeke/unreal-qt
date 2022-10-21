@@ -242,22 +242,26 @@ class FramelessWindow(QWidget):
         super().setWindowFlags(Qt.Window | Qt.CustomizeWindowHint)
         self.title_bar.setWindowFlags(type)
 
+    def wrap_widget(self, widget):
+        """set central widget and copy over settings from widget"""
+        # wrap widget in a frameless window
+        self.setCentralWidget(widget)
+
+        # copy over settings from widget
+        self.setWindowTitle(widget.windowTitle())
+        self.setWindowIcon(widget.windowIcon())
+        self.resize(widget.size())
+        self.setWindowFlags(widget.windowFlags())
+        # self.move(widget.pos())
+
 
 class FramelessWindowUnreal(FramelessWindow):
     default_title_bar = DarkBarUnreal
 
 
 def wrap_widget_unreal(widget: QWidget) -> FramelessWindowUnreal:
-    """wrap a widget in a frameless window with a custom title bar"""
+    """helper function to wrap a widget in a frameless window with a custom title bar"""
     # wrap widget in a frameless window
     window = FramelessWindowUnreal()
-    window.setCentralWidget(widget)
-
-    # copy over settings from widget
-    window.setWindowTitle(widget.windowTitle())
-    window.setWindowIcon(widget.windowIcon())
-    window.resize(widget.size())
-    window.move(widget.pos())
-    window.setWindowFlags(widget.windowFlags())
-
+    window.wrap_widget(widget)
     return window
