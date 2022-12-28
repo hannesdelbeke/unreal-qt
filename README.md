@@ -9,7 +9,7 @@ QT PySide2 support for unreal engine 5 (likely works in unreal 4)
 ## Quickstart
 
 1. Add the unreal_qt folder in your python path. See [unreal docs](https://docs.unrealengine.com/4.27/en-US/ProductionPipelines/ScriptingAndAutomation/Python/#pythonpathsintheunrealeditor)
-2. create following sample script and add to unreal python path.
+2. Use the following code snippet to create `sample.py` and add it to unreal python path.
 ```python
 # 1. SETUP - this step can automatically run on editor startup when added to your init_unreal.py
 import unreal_qt
@@ -30,6 +30,9 @@ unreal_qt.wrap(w)
 w.show()
 ```
 3. import script in unreal with the Python terminal to run it.
+```python
+import sample
+```
 
 ![image](https://user-images.githubusercontent.com/3758308/191580757-f3993797-da80-449e-b9d4-ad311b2f37c5.png)
 
