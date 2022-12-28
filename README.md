@@ -8,6 +8,7 @@ QT PySide2 support for unreal engine 5 (likely works in unreal 4)
 
 ## Quickstart
 
+this guide assumes you have PySide2 installed already!
 1. Add the unreal_qt folder in your python path. See [unreal docs](https://docs.unrealengine.com/4.27/en-US/ProductionPipelines/ScriptingAndAutomation/Python/#pythonpathsintheunrealeditor)
 2. Use the following code snippet to create `sample.py` and add it to unreal python path.
 ```python
