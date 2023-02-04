@@ -4,14 +4,6 @@ import sys
 import unreal_qt.dark_bar
 DarkBar = unreal_qt.dark_bar.DarkBarUnreal
 
-# from PyQt5.QtCore import QPoint
-# from PyQt5.QtCore import Qt
-# from PyQt5.QtWidgets import QApplication
-# from PyQt5.QtWidgets import QHBoxLayout
-# from PyQt5.QtWidgets import QLabel
-# from PyQt5.QtWidgets import QPushButton
-# from PyQt5.QtWidgets import QVBoxLayout
-# from PyQt5.QtWidgets import QWidget
 import PySide2.QtCore
 import PySide2.QtGui as QtGui
 from PySide2.QtCore import QPoint
@@ -58,7 +50,7 @@ class MainWindow(QWidget):
         self.layout.addWidget(DarkBar(self, title=title))
         self.setLayout(self.layout)
         self.layout.setContentsMargins(0, 0, 0, 0)
-        self.setMinimumSize(100,50)
+        self.setMinimumSize(100, 50)
         # self.pressing = False
 
         # use CustomizeWindowHint when you want to support resizing
@@ -70,8 +62,6 @@ class MainWindow(QWidget):
         create_test_content(self)
 
         self.layout.addStretch(-1)  # this helps the bar staying at top when scaling the window
-
-
 
 
 if not QApplication.instance():
