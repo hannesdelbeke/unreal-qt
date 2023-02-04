@@ -66,8 +66,28 @@ class widget_manager():
         cls._wrap_show(widget)
         return widget
 
+# This function is called by the windows when they are closing. (Only if the connection is properly made.)
+# def __qt_window_closed(window=None):
+#     if window in opened_windows:
+#         opened_windows.remove(window)
+
+
+class widget_manager():
+    widgets = []
+
+    @classmethod
+    def add_widget(cls, widget: QtWidgets.QWidget):
+        if widget in cls.widgets:
+            return
+
+        # connect a callback to the close event of the widget
+        widget.close.connect(lambda: cls.remove_window(widget))
+
+        cls.widgets.append(widget)
+
     @classmethod
     def remove_widget(cls, widget):
+        print("remove_window")
         cls.widgets.remove(widget)
 
 
