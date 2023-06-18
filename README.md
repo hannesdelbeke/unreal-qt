@@ -55,13 +55,6 @@ With unreal_qt you can add a custom bar.
 ![image](https://user-images.githubusercontent.com/3758308/191618151-319b8530-addb-4b9a-a51f-5da0a90a4fd3.png)
 
 
-## Engine resource browser
-Browse the unreal instal folder for default resources (icons, shapes, fonts) which can be used in your qt-tools
-- filter by file type
-- search by name
-
-![image](https://user-images.githubusercontent.com/3758308/191581830-d0a527ec-cd5a-4724-9454-60f418bd93f0.png)
-
 ## community
 - tech-artists.org [PySide and Unreal5](https://discourse.techart.online/t/pyside-and-unreal5/15475/6) thread 
 - [ ]  TODO unreal forums thread
