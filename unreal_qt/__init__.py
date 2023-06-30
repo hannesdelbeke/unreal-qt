@@ -1,7 +1,7 @@
 """
 Add support for qt in unreal without blocking the editor/tick
 """
-import unreal_qt.unrealStylesheet.main
+import unrealStylesheet
 import sys
 from PySide2 import QtWidgets, QtCore
 import functools
@@ -19,7 +19,7 @@ def setup():
     QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_UseHighDpiPixmaps)
 
     unreal_app = QtWidgets.QApplication.instance() or QtWidgets.QApplication(sys.argv)
-    unreal_qt.unrealStylesheet.main.setup()
+    unrealStylesheet.setup()
 
     print("Completed unreal_qt setup")
 
