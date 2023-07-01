@@ -1,4 +1,4 @@
-# unreal_qt
+# unreal qt
 QT PySide2 support for unreal engine 5 (likely works in unreal 4)
 - prevent widget from instantly dissapearing due to garbage collection
 - automatically style all Qt widgets using Xingyu Lei's [unreal_stylesheet](https://github.com/leixingyu/UnrealStylesheet)
