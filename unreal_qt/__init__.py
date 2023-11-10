@@ -19,7 +19,7 @@ def setup():
     QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_UseHighDpiPixmaps)
 
     unreal_app = QtWidgets.QApplication.instance() or QtWidgets.QApplication(sys.argv)
-    unrealStylesheet.setup()
+    unreal_stylesheet.setup()
 
     print("Completed unreal_qt setup")
 
