@@ -1,7 +1,7 @@
 """
 Add support for qt in unreal without blocking the editor/tick
 """
-import unrealStylesheet
+import unreal_stylesheet
 import sys
 from PySide2 import QtWidgets, QtCore
 import functools
