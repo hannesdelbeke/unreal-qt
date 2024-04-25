@@ -3,7 +3,10 @@ Add support for qt in unreal without blocking the editor/tick
 """
 import unreal_stylesheet
 import sys
-from PySide2 import QtWidgets, QtCore
+try:
+    from PySide6 import QtWidgets, QtCore
+except ImportError:
+    from PySide2 import QtWidgets, QtCore
 import functools
 import unreal_qt.dark_bar
 import unreal
