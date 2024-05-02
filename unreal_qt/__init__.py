@@ -6,8 +6,10 @@ import unreal_stylesheet
 import sys
 try:
     from PySide6 import QtWidgets, QtCore
+    print("unreal_qt setup PySide6")
 except ImportError:
     from PySide2 import QtWidgets, QtCore
+    print("unreal_qt setup PySide2")
 # import functools
 # import unreal_qt.dark_bar
 
