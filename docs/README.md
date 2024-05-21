@@ -37,6 +37,10 @@ import sample
 
 ![image](https://user-images.githubusercontent.com/3758308/191580757-f3993797-da80-449e-b9d4-ad311b2f37c5.png)
 
+
+<details>
+ <summary>Dark title bar</summary>
+        
 ## Dark title bar
 The windows bar is by default white on Windows, and QT can't change the bar color.
 
@@ -53,6 +57,9 @@ With unreal_qt you can add a custom bar.
 - custom bar, frame, no title bar (supports resize)
 
 ![image](https://user-images.githubusercontent.com/3758308/191618151-319b8530-addb-4b9a-a51f-5da0a90a4fd3.png)
+
+</details>
+
 
 
 ## community
