@@ -1,5 +1,5 @@
 # unreal qt
-QT PySide2 support for unreal engine 5 (likely works in unreal 4)
+QT PySide6 support for unreal engine 5 (likely works in unreal 4)
 - prevent widget from instantly dissapearing due to garbage collection
 - automatically style all Qt widgets using Xingyu Lei's [unreal_stylesheet](https://github.com/leixingyu/UnrealStylesheet)
 - dark window bar for a better visual match with Unreal
@@ -18,7 +18,7 @@ unreal_qt.setup()
 
 # 2. CREATE WIDGET - create your qt widget
 # every widget you make after setup won't block the editor & have unreal styling
-from PySide2.QtWidgets import QLabel, QWidget, QVBoxLayout
+from PySide6.QtWidgets import QLabel, QWidget, QVBoxLayout
 w = QWidget()
 layout = QVBoxLayout()
 w.setLayout(layout)
