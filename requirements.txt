@@ -1,1 +1,2 @@
 unreal-stylesheet
+PySide6
