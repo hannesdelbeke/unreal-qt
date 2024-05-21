@@ -1,3 +1,5 @@
+⚠️ This repo is for developers, artists and non-dev users can use the [Unreal Qt plugin](https://github.com/hannesdelbeke/unreal-qt-plugin) 
+
 # unreal qt
 QT PySide6 support for unreal engine 5 (likely works in unreal 4)
 - prevent widget from instantly dissapearing due to garbage collection
