@@ -5,7 +5,12 @@ QT PySide6 support for unreal engine 5 (likely works in unreal 4)
 - dark window bar for a better visual match with Unreal
 - parent widget to Unreal's main window to stay on top
         
-
+## Install
+1. Copy the `unreal_qt` folder to Unreal's Python path. e.g. 
+- project `D:\Unreal Projects\MyProject\Content\Python\Lib`
+- or editor `D:\Program Files\Epic Games\UE_5.4\Engine\Binaries\ThirdParty\Python3\Win64\Lib\site-packages`
+2. Run the setup code on Unreal startup, e.g. with a plugin or `init_unreal.py` file. see [docs](https://dev.epicgames.com/documentation/en-us/unreal-engine/scripting-the-unreal-editor-using-python)
+  
 ## Quickstart
 
 this guide assumes you have PySide2 installed already!
