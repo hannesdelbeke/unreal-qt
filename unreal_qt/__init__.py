@@ -4,18 +4,17 @@ Add support for qt in unreal without blocking the editor/tick
 import unreal
 import unreal_stylesheet
 import sys
-try:
-    from PySide6 import QtWidgets, QtCore
-    print("unreal_qt setup PySide6")
-except ImportError:
-    from PySide2 import QtWidgets, QtCore
-    print("unreal_qt setup PySide2")
+
+from PySide6 import QtWidgets, QtCore
+print("unreal_qt setup PySide6")
+
 # import functools
 # import unreal_qt.dark_bar
 
 
 __widgets = []
 __excluded_widgets = []
+__tick_handler = None
 
 
 def setup():
@@ -24,61 +23,18 @@ def setup():
 
     # enable dpi scale, run before creating QApplication
     QtWidgets.QApplication.setHighDpiScaleFactorRoundingPolicy(QtCore.Qt.HighDpiScaleFactorRoundingPolicy.PassThrough)
-    QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling)
-    QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_UseHighDpiPixmaps)
+    #QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling)
+    #QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_UseHighDpiPixmaps)
 
     unreal_app = QtWidgets.QApplication.instance() or QtWidgets.QApplication(sys.argv)
     unreal_stylesheet.setup()
 
+    global __tick_handler
+
+    if __tick_handler is None:
+        __tick_handler = unreal.register_slate_post_tick_callback(tick)  # Hook up to Unreal's tick mechanism
+
     print("Completed unreal_qt setup")
-
-
-# class widget_manager():
-#     widgets = []
-# 
-#     @classmethod
-#     def _wrap_closeEvent(cls, widget, original_closeEvent):  # noqa
-#         def closeEvent(self, event):  # noqa
-#             # run original closeEvent
-#             result = original_closeEvent(event)
-#             # remove widget from list
-#             close_widget = event.isAccepted()
-#             if close_widget:
-#                 cls.remove_widget(self)
-#             # return original result
-#             return result
-#         functools.partial(closeEvent, widget)
-#         return closeEvent
-# 
-#     @classmethod
-#     def _wrap_show(cls, widget):
-#         original_show = widget.show
-#         def show(self):
-#             original_show()
-#             unreal.parent_external_window_to_slate(widget.winId())  # this only works after showing the widget
-#         functools.partial(show, widget)
-# 
-#     @classmethod
-#     def add_widget(cls, widget: QtWidgets.QWidget):
-#         """
-#         Add a widget to the widget manager.
-#         - prevent widget from being garbage collected
-#         - hookup closeEvent to remove widget from manager
-#         - add dark window bar to mimic Unreal's visual style
-#         - parent widget to Unreal's main window to stay on top
-#         """
-#         if widget in cls.widgets:
-#             return widget
-#         widget = unreal_qt.dark_bar.wrap_widget_unreal(widget)
-#         cls.widgets.append(widget)
-#         cls._wrap_closeEvent(widget, widget.closeEvent)
-#         cls._wrap_show(widget)
-#         return widget
-
-# This function is called by the windows when they are closing. (Only if the connection is properly made.)
-# def __qt_window_closed(window=None):
-#     if window in opened_windows:
-#         opened_windows.remove(window)
 
 
 class widget_manager():
@@ -90,7 +46,7 @@ class widget_manager():
             return
         
         # connect a callback to the close event of the widget
-        widget.close.connect(lambda: cls.remove_window(widget))
+        widget.destroyed.connect(lambda: cls.remove_widget(widget))
 
         cls.widgets.append(widget)
 
@@ -126,7 +82,8 @@ def parent_orphan_widgets(exclude=None):
             __excluded_widgets.append(widget)
             continue
 
-        unreal.parent_external_window_to_slate(widget.winId())
+        searchmethod = unreal.SlateParentWindowSearchMethod.MAIN_WINDOW
+        unreal.parent_external_window_to_slate(widget.winId(), searchmethod)
 
         __widgets.append(widget)
         unreal.log_warning(f"parented widget {widget}")
@@ -134,15 +91,8 @@ def parent_orphan_widgets(exclude=None):
 
 __timer = 0
 
-
 def tick(delta_seconds):
     global __timer
     __timer += delta_seconds
     if __timer >= 0.3:
         parent_orphan_widgets()
-
-# Example usage
-# Assuming this is being executed in Unreal's Python environment
-# You can hook up the tick method to Unreal's tick mechanism
-setup()
-unreal.register_slate_post_tick_callback(tick)  # Hook up to Unreal's tick mechanism
