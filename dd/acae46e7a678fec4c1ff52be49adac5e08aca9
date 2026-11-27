@@ -1,0 +1,19 @@
+pyproject.toml
+  s_2175c77ffa8070::t_6e21e2f1ac5c40 16,26
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "ddacae46e7a678fec4c1ff52be49adac5e08aca9",
+  "prompts": {},
+  "sessions": {
+    "s_2175c77ffa8070": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "cd052aa9-9a27-4250-b91e-b2319a8cbf2e",
+        "model": "claude-sonnet-5-5"
+      },
+      "human_author": "Hannes Delbeke <3758308+hannesdelbeke@users.noreply.github.com>"
+    }
+  }
+}
