@@ -105,7 +105,8 @@ def parent_orphan_widgets(exclude=None):
         unreal.parent_external_window_to_slate(widget.winId(), searchmethod)
 
         __widgets.append(widget)
-        widget.destroyed.connect(lambda: _forget_widget(widget))
+        # bind `widget` now, a plain closure would see the last widget of this loop
+        widget.destroyed.connect(lambda *_, w=widget: _forget_widget(w))
         unreal.log_warning(f"parented widget {widget}")
 
 
