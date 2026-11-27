@@ -1,0 +1,19 @@
+unreal_qt/__init__.py
+  s_2175c77ffa8070::t_42240c79ec1621 108-109
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "4bf902bba9b9dc50719d21a2ea515e102126bcb6",
+  "prompts": {},
+  "sessions": {
+    "s_2175c77ffa8070": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "cd052aa9-9a27-4250-b91e-b2319a8cbf2e",
+        "model": "unknown"
+      },
+      "human_author": "Hannes Delbeke <3758308+hannesdelbeke@users.noreply.github.com>"
+    }
+  }
+}
