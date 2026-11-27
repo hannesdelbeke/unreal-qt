@@ -13,7 +13,7 @@ authors = [
     {name = "Hannes D"},
 ]
 description = "A Qt manager for Unreal that enables the use of PyQt & PySide in Unreal Engine"
-readme = "README.md"
+readme = "docs/README.md"
 requires-python = ">=3.4"
 keywords = ["application", "unreal", "pyside", "pyqt", "qt", "engine", "unrealengine"]
 #license = { file = "LICENSE" }
@@ -23,7 +23,7 @@ classifiers = [
 #dynamic = ["dependencies"]
 dependencies = ['importlib-metadata; python_version<"3.7"', "PySide6", "unreal-stylesheet"]
 #dynamic = ["version"]
-version = "0.0.3"
+version = "0.1.0"
 
 #[project.optional-dependencies]
 #yaml = ["pyyaml"]
