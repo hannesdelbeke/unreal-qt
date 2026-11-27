@@ -8,10 +8,6 @@ import sys
 from PySide6 import QtWidgets, QtCore
 print("unreal_qt setup PySide6")
 
-# import functools
-# import unreal_qt.dark_bar
-
-
 __widgets = []
 __excluded_widgets = []
 __tick_handler = None
@@ -23,8 +19,6 @@ def setup():
 
     # enable dpi scale, run before creating QApplication
     QtWidgets.QApplication.setHighDpiScaleFactorRoundingPolicy(QtCore.Qt.HighDpiScaleFactorRoundingPolicy.PassThrough)
-    #QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling)
-    #QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_UseHighDpiPixmaps)
 
     unreal_app = QtWidgets.QApplication.instance() or QtWidgets.QApplication(sys.argv)
     unreal_stylesheet.setup()
